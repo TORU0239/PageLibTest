@@ -34,11 +34,14 @@ public interface UserDao {
     @Delete
     public void deleteUser(UserMockData... user);
 
-    // querying users
-    @Query("SELECT * from UserTable")
-    public abstract DataSource.Factory<Integer, UserMockData> usersByFirstName();
+    // querying all users
+    @Query("SELECT * FROM UserTable ")
+    public abstract DataSource.Factory<Integer, UserMockData> getAllUsers();
 
     // querying count of users
     @Query("SELECT COUNT(*) from UserTable")
     int getTotalUserCount();
+
+    @Query("SELECT * FROM UserTable WHERE name LIKE :name")
+    public abstract DataSource.Factory<Integer, UserMockData> getUsersFromName(String name);
 }
