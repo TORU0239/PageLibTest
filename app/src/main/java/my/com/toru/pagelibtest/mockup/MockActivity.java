@@ -48,8 +48,34 @@ public class MockActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        UserMockViewModel viewModel = ViewModelProviders.of(MockActivity.this)
-                                        .get(UserMockViewModel.class);
+        UserMockViewModel viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(new UserDao() {
+            @Override
+            public void insertAllUsers(List<UserMockData> users) {}
+
+            @Override
+            public void insertUser(UserMockData... user) {}
+
+            @Override
+            public void updateUser(UserMockData... user) {}
+
+            @Override
+            public void deleteUser(UserMockData... user) {}
+
+            @Override
+            public DataSource.Factory<Integer, UserMockData> getAllUsers() {
+                return null;
+            }
+
+            @Override
+            public int getTotalUserCount() {
+                return 0;
+            }
+
+            @Override
+            public DataSource.Factory<Integer, UserMockData> getUsersFromName(String name) {
+                return null;
+            }
+        })).get(UserMockViewModel.class);
 
 
         // Whenever getting data set changed, notify here.
