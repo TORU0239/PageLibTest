@@ -3,6 +3,8 @@ package my.com.toru.pagelibtest.mockup.dao;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.DiffCallback;
 
 /**
  * Created by toruchoi on 25/01/2018.
@@ -68,4 +70,16 @@ public class UserMockData {
                 ", gender=" + gender +
                 '}';
     }
+
+    public static DiffCallback<UserMockData> diffCallback = new DiffCallback<UserMockData>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull UserMockData oldItem, @NonNull UserMockData newItem) {
+            return oldItem.userId == newItem.userId;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull UserMockData oldItem, @NonNull UserMockData newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }
