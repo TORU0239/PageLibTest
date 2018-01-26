@@ -1,12 +1,7 @@
 package my.com.toru.pagelibtest.mockup;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.arch.paging.DataSource;
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import java.util.List;
-
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.dao.UserDB;
-import my.com.toru.pagelibtest.mockup.dao.UserDao;
-import my.com.toru.pagelibtest.mockup.dao.UserMockData;
 
 public class MockActivity extends AppCompatActivity {
 
@@ -52,13 +43,16 @@ public class MockActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rcv_mock);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
         UserMockViewModel viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
 
-
         // Whenever getting data set changed, notify here.
-        viewModel.usersList.observe(MockActivity.this, adapter::setList);
+        viewModel.usersList.observe(MockActivity.this, userMockData -> {
+            Log.w(TAG, "updated?");
+            adapter.setList(userMockData);
+            Log.w(TAG, "updated!, item:: " + adapter.getItemCount());
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     private UserDB userDB;
