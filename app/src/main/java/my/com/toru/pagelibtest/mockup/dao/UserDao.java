@@ -35,8 +35,11 @@ public interface UserDao {
     public void deleteUser(UserMockData... user);
 
     // querying all users
-    @Query("SELECT * FROM UserTable ")
+    @Query("SELECT * FROM UserTable")
     public abstract DataSource.Factory<Integer, UserMockData> getAllUsers();
+
+    @Query("SELECT * FROM UserTable ORDER BY user_id DESC")
+    public abstract DataSource.Factory<Integer, UserMockData> getAllUsersInDesc();
 
     // querying count of users
     @Query("SELECT COUNT(*) from UserTable")

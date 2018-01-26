@@ -2,7 +2,6 @@ package my.com.toru.pagelibtest.mockup;
 
 import android.arch.paging.PagedListAdapter;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,6 @@ public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.User
         }
 
         protected void bind(UserMockData userData){
-            Log.w(TAG, "data:: " + userData.toString());
             userName.setText(userData.name);
             userAddress.setText(userData.address);
         }

@@ -30,10 +30,7 @@ public class MockActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view ->
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null)
-//                        .show());
-                viewModel.onClickForFab()
+                viewModel.onClickForFab(view)
         );
     }
 
@@ -43,7 +40,7 @@ public class MockActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(MockActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        RecyclerView recyclerView = findViewById(R.id.rcv_mock);
+        final RecyclerView recyclerView = findViewById(R.id.rcv_mock);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -54,6 +51,7 @@ public class MockActivity extends AppCompatActivity {
             Log.w(TAG, "updated?");
             adapter.setList(userMockData);
             Log.w(TAG, "updated!, item:: " + adapter.getItemCount());
+            recyclerView.smoothScrollToPosition(0);
         });
         recyclerView.setAdapter(adapter);
     }

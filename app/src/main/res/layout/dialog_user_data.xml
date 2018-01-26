@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_namelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintAnimationEnabled="true"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="#444444"
+            android:hint="Name"
+            tools:text="Round 1 fight"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_addresslayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:hintAnimationEnabled="true"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_user_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#444444"
+            android:maxLines="1"
+            android:hint="Address"
+            tools:text="Round 1 fight"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_agelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:hintAnimationEnabled="true"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_user_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#444444"
+            android:maxLines="1"
+            android:hint="Age"
+            android:inputType="numberDecimal"
+            android:text="0"
+            tools:text="Round 1 fight"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
