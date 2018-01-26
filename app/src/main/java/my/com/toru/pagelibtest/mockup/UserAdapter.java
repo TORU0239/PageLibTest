@@ -50,8 +50,10 @@ public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.User
         }
 
         protected void bind(UserMockData userData){
-            userName.setText(userData.name);
-            userAddress.setText(userData.address);
+            if(userData != null){
+                userName.setText(userData.name);
+                userAddress.setText(userData.address);
+            }
         }
     }
 }

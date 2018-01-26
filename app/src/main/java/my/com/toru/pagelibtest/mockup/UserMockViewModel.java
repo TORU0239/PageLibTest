@@ -37,7 +37,7 @@ public class UserMockViewModel extends ViewModel {
         if(userDao.getTotalUserCount() <= 1){
             userDao.insertAllUsers(dummyDatas());
         }
-        usersList = new LivePagedListBuilder<>(dao.getAllUsersInDesc(), 10).build();
+        usersList = new LivePagedListBuilder<>(dao.getAllUsersInDesc(), 5).build();
     }
 
     /*
