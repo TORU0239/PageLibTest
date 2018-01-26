@@ -36,6 +36,7 @@ public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.User
 
     static class UserViewHolder extends RecyclerView.ViewHolder{
         TextView userName;
+        TextView userAddress;
 
         public static UserViewHolder createViewHolder(View view){
             return new UserViewHolder(view);
@@ -44,10 +45,12 @@ public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.User
         public UserViewHolder(View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.user_name);
+            userAddress = itemView.findViewById(R.id.user_address);
         }
 
         protected void bind(UserMockData userData){
             userName.setText(userData.name);
+            userName.setText(userData.address);
         }
     }
 }

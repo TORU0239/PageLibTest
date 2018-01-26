@@ -22,7 +22,7 @@ public class UserMockViewModel extends ViewModel {
     public UserMockViewModel(UserDao dao){
         Log.w(TAG, "Constructed!!");
         // temporarily blocked!!
-//        usersList = new LivePagedListBuilder<>(dao.getAllUsers(), 10).build();
+        usersList = new LivePagedListBuilder<>(dao.getAllUsers(), 10).build();
     }
 
     // TODO: calling REST API, updating Database.

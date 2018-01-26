@@ -20,6 +20,7 @@ public class UserMockViewModelFactory extends ViewModelProvider.NewInstanceFacto
     }
 
     @NonNull
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T)new UserMockViewModel(dao);

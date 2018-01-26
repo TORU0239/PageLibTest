@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.DataSource;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,14 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import java.util.List;
 
 import my.com.toru.pagelibtest.R;
+import my.com.toru.pagelibtest.mockup.dao.UserDB;
 import my.com.toru.pagelibtest.mockup.dao.UserDao;
 import my.com.toru.pagelibtest.mockup.dao.UserMockData;
 
 public class MockActivity extends AppCompatActivity {
+
+    private static final String TAG = MockActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MockActivity extends AppCompatActivity {
                         .setAction("Action", null)
                         .show());
 
+        initDatabase();
         init();
     }
 
@@ -48,37 +54,21 @@ public class MockActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        UserMockViewModel viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(new UserDao() {
-            @Override
-            public void insertAllUsers(List<UserMockData> users) {}
-
-            @Override
-            public void insertUser(UserMockData... user) {}
-
-            @Override
-            public void updateUser(UserMockData... user) {}
-
-            @Override
-            public void deleteUser(UserMockData... user) {}
-
-            @Override
-            public DataSource.Factory<Integer, UserMockData> getAllUsers() {
-                return null;
-            }
-
-            @Override
-            public int getTotalUserCount() {
-                return 0;
-            }
-
-            @Override
-            public DataSource.Factory<Integer, UserMockData> getUsersFromName(String name) {
-                return null;
-            }
-        })).get(UserMockViewModel.class);
+        UserMockViewModel viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
 
 
         // Whenever getting data set changed, notify here.
         viewModel.usersList.observe(MockActivity.this, adapter::setList);
+    }
+
+    private UserDB userDB;
+    private void initDatabase(){
+        userDB = UserDB.get(MockActivity.this);
+        try {
+            Log.w(TAG, "user DB Size:: " + userDB.getUserDao().getTotalUserCount());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
