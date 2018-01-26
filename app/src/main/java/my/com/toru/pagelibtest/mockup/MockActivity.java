@@ -3,8 +3,8 @@ package my.com.toru.pagelibtest.mockup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +42,7 @@ public class MockActivity extends AppCompatActivity {
 
         final RecyclerView recyclerView = findViewById(R.id.rcv_mock);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(MockActivity.this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
 
         viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
