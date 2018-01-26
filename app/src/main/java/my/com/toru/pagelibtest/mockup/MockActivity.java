@@ -14,8 +14,9 @@ import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.dao.UserDB;
 
 public class MockActivity extends AppCompatActivity {
-
     private static final String TAG = MockActivity.class.getSimpleName();
+
+    private UserMockViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +25,16 @@ public class MockActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(
-                view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show());
-
         initDatabase();
         init();
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view ->
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null)
+//                        .show());
+                viewModel.onClickForFab()
+        );
     }
 
     private void init(){
@@ -44,7 +47,7 @@ public class MockActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        UserMockViewModel viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
+        viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
 
         // Whenever getting data set changed, notify here.
         viewModel.usersList.observe(MockActivity.this, userMockData -> {

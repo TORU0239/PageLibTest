@@ -2,6 +2,7 @@ package my.com.toru.pagelibtest.mockup;
 
 import android.arch.paging.PagedListAdapter;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import static my.com.toru.pagelibtest.mockup.dao.UserMockData.diffCallback;
  */
 
 public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.UserViewHolder> {
+    private static final String TAG = UserAdapter.class.getSimpleName();
 
     protected UserAdapter() {
         super(diffCallback);
@@ -49,8 +51,9 @@ public class UserAdapter extends PagedListAdapter<UserMockData, UserAdapter.User
         }
 
         protected void bind(UserMockData userData){
+            Log.w(TAG, "data:: " + userData.toString());
             userName.setText(userData.name);
-            userName.setText(userData.address);
+            userAddress.setText(userData.address);
         }
     }
 }

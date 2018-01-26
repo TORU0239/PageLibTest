@@ -22,12 +22,28 @@ public class UserMockViewModel extends ViewModel {
 
     public LiveData<PagedList<UserMockData>> usersList;
 
+    private UserDao userDao;
+
     public UserMockViewModel(UserDao dao){
         Log.w(TAG, "Constructed!!");
-        if(dao.getTotalUserCount() <= 1){
-            dao.insertAllUsers(dummyDatas());
+        userDao = dao;
+        if(userDao.getTotalUserCount() <= 1){
+            userDao.insertAllUsers(dummyDatas());
         }
         usersList = new LivePagedListBuilder<>(dao.getAllUsers(), 10).build();
+    }
+
+    /*
+    * Event Handler
+    */
+
+    public void onClickForFab(){
+        Log.w(TAG, "onClickForFab");
+        UserMockData data = new UserMockData();
+        data.name = "Moon Chan";
+        data.age = 25;
+        data.address = "Cheras";
+        userDao.insertUser(data);
     }
 
     // TODO: calling REST API, updating Database.
