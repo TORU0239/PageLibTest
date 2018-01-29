@@ -20,7 +20,7 @@ public abstract class UserDB extends RoomDatabase {
     public synchronized static UserDB get(Context ctx){
         if(instance == null){
             instance = Room.databaseBuilder(ctx.getApplicationContext(), UserDB.class, "UserDatabase")
-                            .allowMainThreadQueries().build();
+                        .build();
         }
         return instance;
     }
