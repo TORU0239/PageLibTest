@@ -1,4 +1,4 @@
-package my.com.toru.pagelibtest.ui.activity;
+package my.com.toru.pagelibtest.real.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import my.com.toru.pagelibtest.BuildConfig;
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.MockActivity;
-import my.com.toru.pagelibtest.repo.remote.Remote;
+import my.com.toru.pagelibtest.real.api.Remote;
 
 public class MainActivity extends AppCompatActivity {
 
