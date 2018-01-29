@@ -1,17 +1,20 @@
 package my.com.toru.pagelibtest.real.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.util.HashMap;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import my.com.toru.pagelibtest.BuildConfig;
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.MockActivity;
-import my.com.toru.pagelibtest.real.api.Remote;
+import my.com.toru.pagelibtest.real.ui.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +23,30 @@ public class MainActivity extends AppCompatActivity {
 
         if(BuildConfig.DEBUG){
             startActivity(new Intent(MainActivity.this, MockActivity.class));
+            finish();
         }
         else{
-            HashMap<String, String> queryMap = new HashMap<>();
-            queryMap.put("order", "desc");
-            queryMap.put("site", "stackoverflow");
-            queryMap.put("tagged", "android");
-            queryMap.put("filter", "withbody");
-            Remote.retrofit(queryMap);
+            init();
         }
+    }
+
+    private void init(){
+        RecyclerView recyclerView = findViewById(R.id.rcv_main);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        final GithubUserAdapter adapter = new GithubUserAdapter();
+        MainViewModel viewModel = ViewModelProviders.of(MainActivity.this).get(MainViewModel.class);
+        viewModel.userList.observe(MainActivity.this, githubUsers -> {
+            if(githubUsers != null){
+                Log.w(TAG, "github users size: " + githubUsers.size());
+                adapter.setList(githubUsers);
+            }
+            else{
+                Log.w(TAG, "github users null");
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 }
