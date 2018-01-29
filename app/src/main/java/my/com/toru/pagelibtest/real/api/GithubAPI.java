@@ -1,6 +1,5 @@
 package my.com.toru.pagelibtest.real.api;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +16,7 @@ import static my.com.toru.pagelibtest.real.api.GithubService.BASE_URL;
 public class GithubAPI {
     private static final String TAG = GithubAPI.class.getSimpleName();
 
-    public static GithubService retrofit(HashMap<String, String> queryMap){
+    public static GithubService retrofit(){
         OkHttpClient client = new OkHttpClient.Builder()
                                 .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                                 .readTimeout(5000, TimeUnit.MILLISECONDS)

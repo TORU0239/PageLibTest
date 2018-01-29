@@ -2,6 +2,7 @@ package my.com.toru.pagelibtest.real.api;
 
 import java.util.List;
 
+import my.com.toru.pagelibtest.real.model.GithubUser;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,6 +16,6 @@ public interface GithubService {
     int PAGE_SIZE = 50;
 
     @GET("/users")
-    Call<List<String>> getUser(@Query("since") long since,
-                               @Query("per_page") int perPage);
+    Call<List<GithubUser>> getUser(@Query("since") long since,
+                                   @Query("per_page") int perPage);
 }

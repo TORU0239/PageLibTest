@@ -3,6 +3,8 @@ package my.com.toru.pagelibtest.real.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.DiffCallback;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -52,4 +54,16 @@ public class GithubUser {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public static DiffCallback<GithubUser> callback = new DiffCallback<GithubUser>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull GithubUser oldItem, @NonNull GithubUser newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull GithubUser oldItem, @NonNull GithubUser newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }

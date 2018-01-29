@@ -8,10 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import java.util.List;
+
 import my.com.toru.pagelibtest.BuildConfig;
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.MockActivity;
+import my.com.toru.pagelibtest.real.api.GithubAPI;
+import my.com.toru.pagelibtest.real.model.GithubUser;
 import my.com.toru.pagelibtest.real.ui.viewmodel.MainViewModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -21,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(BuildConfig.DEBUG){
+        if(!BuildConfig.DEBUG){
             startActivity(new Intent(MainActivity.this, MockActivity.class));
             finish();
         }

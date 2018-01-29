@@ -1,13 +1,12 @@
 package my.com.toru.pagelibtest.real.ui;
 
 import android.arch.paging.PagedListAdapter;
-import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.DiffCallback;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.real.model.GithubUser;
@@ -19,20 +18,8 @@ import my.com.toru.pagelibtest.real.model.GithubUser;
 public class GithubUserAdapter extends PagedListAdapter<GithubUser, GithubUserAdapter.GithubUserHolder> {
     private static final String TAG = GithubUserAdapter.class.getSimpleName();
 
-    private static DiffCallback<GithubUser> callback = new DiffCallback<GithubUser>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull GithubUser oldItem, @NonNull GithubUser newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull GithubUser oldItem, @NonNull GithubUser newItem) {
-            return oldItem.equals(newItem);
-        }
-    };
-
     public GithubUserAdapter() {
-        super(callback);
+        super(GithubUser.callback);
     }
 
     @Override
@@ -48,12 +35,18 @@ public class GithubUserAdapter extends PagedListAdapter<GithubUser, GithubUserAd
 
     static class GithubUserHolder extends RecyclerView.ViewHolder{
 
+        TextView userId, firstName;
+
         public GithubUserHolder(View itemView) {
             super(itemView);
+            userId      = itemView.findViewById(R.id.user_name);
+            firstName   = itemView.findViewById(R.id.user_address);
         }
 
         protected void bindData(GithubUser user){
             Log.w(TAG, "user data::" + user.toString());
+            userId.setText(String.valueOf(user.userId));
+            firstName.setText(user.firstName);
         }
     }
 }
