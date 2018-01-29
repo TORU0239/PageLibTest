@@ -35,7 +35,7 @@ public class ItemKeyedUserDataSource extends ItemKeyedDataSource<Long, GithubUse
         List<GithubUser> githubUsers = new ArrayList<>();
         initialParams = params;
 
-        githubService.getUser(1, params.requestedLoadSize).enqueue(new Callback<List<GithubUser>>() {
+        githubService.getUser(0, params.requestedLoadSize).enqueue(new Callback<List<GithubUser>>() {
             @Override
             public void onResponse(Call<List<GithubUser>> call, Response<List<GithubUser>> response) {
                 if(response.isSuccessful() && response.code() == 200){

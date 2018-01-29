@@ -17,7 +17,7 @@ public class GithubUser {
 
     @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "user_idd")
+    @ColumnInfo(name = "user_id")
     public long userId;
 
     @SerializedName("login")
