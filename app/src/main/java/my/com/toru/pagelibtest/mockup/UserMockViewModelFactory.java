@@ -23,6 +23,9 @@ public class UserMockViewModelFactory extends ViewModelProvider.NewInstanceFacto
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new UserMockViewModel(dao);
+        if(modelClass.isAssignableFrom(UserMockViewModel.class)){
+            return (T)new UserMockViewModel(dao);
+        }
+        throw new IllegalStateException("Wrong View Model class is assigned!!");
     }
 }

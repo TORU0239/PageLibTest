@@ -25,7 +25,6 @@ public class MockActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initDatabase();
         init();
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -45,7 +44,7 @@ public class MockActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(MockActivity.this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
 
-        viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(userDB.getUserDao())).get(UserMockViewModel.class);
+        viewModel = ViewModelProviders.of(this, new UserMockViewModelFactory(UserDB.get(MockActivity.this).getUserDao())).get(UserMockViewModel.class);
 
         // Whenever getting data set changed, notify here.
         viewModel.usersList.observe(MockActivity.this, userMockData -> {
@@ -55,16 +54,5 @@ public class MockActivity extends AppCompatActivity {
             recyclerView.smoothScrollToPosition(0);
         });
         recyclerView.setAdapter(adapter);
-    }
-
-    private UserDB userDB;
-    private void initDatabase(){
-        userDB = UserDB.get(MockActivity.this);
-        try {
-            Log.w(TAG, "user DB Size:: " + userDB.getUserDao().getTotalUserCount());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }

@@ -13,8 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.Executors;
 
 import my.com.toru.pagelibtest.R;
 import my.com.toru.pagelibtest.mockup.dao.UserDao;
@@ -34,9 +33,6 @@ public class UserMockViewModel extends ViewModel {
     public UserMockViewModel(UserDao dao){
         Log.w(TAG, "Constructed!!");
         userDao = dao;
-        if(userDao.getTotalUserCount() <= 1){
-            userDao.insertAllUsers(dummyDatas());
-        }
         usersList = new LivePagedListBuilder<>(dao.getAllUsersInDesc(), 5).build();
     }
 
@@ -111,7 +107,7 @@ public class UserMockViewModel extends ViewModel {
                             newUser.name = name;
                             newUser.address = address;
                             newUser.age = age;
-                            userDao.insertUser(newUser);
+                            insert(newUser);
                             Toast.makeText(context, "Success!!", Toast.LENGTH_SHORT).show();
                             dialog1.dismiss();
                         }
@@ -120,47 +116,7 @@ public class UserMockViewModel extends ViewModel {
         dialog.show();
     }
 
-    // TODO: calling REST API, updating Database.
-    private List<UserMockData> dummyDatas(){
-        Log.w(TAG, "dummyDatas");
-        LinkedList<UserMockData> dataList = new LinkedList<>();
-
-        UserMockData data = new UserMockData();
-        data.name = "Toru";
-        data.age = 30;
-        data.address = "KLCC";
-        dataList.add(data);
-
-        data = new UserMockData();
-        data.name = "Sean";
-        data.age = 40;
-        data.address = "Desa Park";
-        dataList.add(data);
-
-        data = new UserMockData();
-        data.name = "Kar Heng";
-        data.age = 34;
-        data.address = "Glennmarie";
-        dataList.add(data);
-
-        data = new UserMockData();
-        data.name = "Su Lynn";
-        data.age = 30;
-        data.address = "Subang";
-        dataList.add(data);
-
-        data = new UserMockData();
-        data.name = "Natalia";
-        data.age = 33;
-        data.address = "Dang Wangi";
-        dataList.add(data);
-
-        data = new UserMockData();
-        data.name = "Austeja";
-        data.age = 30;
-        data.address = "Bangsar";
-        dataList.add(data);
-
-        return dataList;
+    private void insert(UserMockData data){
+        Executors.newSingleThreadExecutor().execute(() -> userDao.insertUser(data));
     }
 }
